@@ -1,0 +1,66 @@
+*{
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+body{
+    display: grid;
+    place-content: center;
+    min-height: 100vh;
+    gap: 34px;
+    justify-items: center;
+}
+.container-buttons{
+    display: flex;
+    gap: 8px;
+    width: fit-content;
+}
+.number{
+    display: flex;
+    gap: 8px;
+    max-width: 151px;
+    flex-wrap: wrap;
+}
+.button{
+    width: 45px;
+    height: 45px;
+    border-radius: 6px;
+    border: 1px solid rgb(211, 211, 211);
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+}
+.operaciones{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.button-blue{
+
+    background: rgb(90, 130, 250);
+}
+.screen{
+    background-image: linear-gradient(145deg, rgb(13, 13, 13),rgb(90, 90, 90));
+    border: 1px solid rgb(211, 211, 211);
+    min-height: 50px;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: .5rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: end;
+    position: relative;
+}
+.result{
+    font-size: 30px;
+    position: relative;
+    top: 10px;
+}
+.operation{
+    font-size: 13px;
+    position: absolute;
+    top: 10px;
+}
