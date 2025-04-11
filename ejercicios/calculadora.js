@@ -1,3 +1,4 @@
+import { componenteHistorialDeOperaciones } from "../componente/historial-operacion.js"
 /* 
     CREAR UNA CALCULADORA INTERACTIVO
     QUE EJECUTA LAS 3 OPERACIONES BASICAS
@@ -15,10 +16,11 @@ let valorAnterior = ""
 let valorActual = ""
 let operador = ""
 let resultado = ""
+let operacionMemoria = ""
+let banderaOperacion = false
 let historial = []
 
 
-/* - En la variable $numberNode se recorre cada boton (btn) y se le agrega un evento click */
 $numberNode.forEach(btn =>{
     agregarEventoClick(btn)
 })
@@ -26,26 +28,19 @@ $operationNode.forEach(operador =>{
     agregarEventoClick(operador)
 })
 
-/* - Se define la función agregarEventoClick que recibe como parametro un elemento */
 function agregarEventoClick(elemento){
-    /* - Al elemento se le agrega un Listener para el evento click, en la cual ejecutara una función de tipo flecha  */
     elemento.addEventListener('click',()=>{
-        /* - Se le define una variable btnPresionado que hace referencia al elemento */
         let btnPresionado = elemento
 
-        /* - Verificamos si el btnPresionado tiene la clase "button-number" */
         if(btnPresionado.classList.contains('button-number')){
-            /* Si es asi, se ejecutara la siguiente operación */
-            $operation.innerHTML = valorAnterior + operador + valorActual
+            limpiarBanderaOperacion()
             valorActual += elemento.textContent
             $result.innerHTML = valorActual
         }else{
             let ope = elemento.textContent
             console.log(valorAnterior, operador, valorActual)
             detectarOperacion(ope)
-            
         }
-
     })
 }
 
@@ -91,22 +86,53 @@ function resultadoDeLaOperacion(ope){
         }else if (operador === "*"){
             resultado = parseInt(valorAnterior) * parseInt(valorActual)
         }
-
-        $operation.innerHTML = valorAnterior + operador + valorActual
-        $result.innerHTML = resultado
-
-        historial.push(`${valorAnterior} ${operador} ${valorActual} = ${resultado}`)
-        console.log(historial)
+        mostrarResultadoEnPantalla(resultado)
         
         
-        valorActual = ""
-        valorAnterior = ""
-        operador = ""
-
-        console.log(valorAnterior + operador + valorActual)
     }
 }
+function historialDeOperaciones(resultado){
+    
+    let objOperacion = {
+        operacion: valorAnterior + operador + valorActual,
+        resultado: resultado
+    }
+    historial.push(objOperacion)
+    mostrarHistorialDeOperaciones()
+    /* console.log(historial) */
+}
 
+function mostrarHistorialDeOperaciones(){
+    let $historial = document.getElementById("historial")
+    $historial.innerHTML = ""
+    historial.forEach(his =>{
+        componenteHistorialDeOperaciones(his)
+    })
+}
 
+function mostrarResultadoEnPantalla(resultado){
+    historialDeOperaciones(resultado)
+
+    operacionMemoria = valorAnterior + operador + valorActual
+    $operation.innerHTML = operacionMemoria
+    operacionMemoria = ""
+
+    $result.innerHTML = resultado
+    banderaOperacion = true
+
+    /* Limpiamos las variables */
+    valorActual = ""
+    valorAnterior = ""
+    operador = ""
+
+    console.log(valorAnterior + operador + valorActual)
+}
+
+function limpiarBanderaOperacion(){
+    if(banderaOperacion != false){
+        $operation.innerHTML = ""
+        banderaOperacion = false
+    }
+}
 
 
