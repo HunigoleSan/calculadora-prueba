@@ -3,23 +3,22 @@
     QUE EJECUTA LAS 3 OPERACIONES BASICAS
 */
 
+/* - En la variable $numberNode, almacena todos los elementos del documento que tienen la clase .button-number */
 let $numberNode = document.querySelectorAll('.button-number')
 let $operationNode = document.querySelectorAll('.button-operation')
+/* - En la variable $result, almacena el primer elemento del documento que tiene la clase .result */
 let $result = document.querySelector('.result')
 let $operation = document.querySelector('.operation')
+
 
 let valorAnterior = ""
 let valorActual = ""
 let operador = ""
 let resultado = ""
+let historial = []
 
-let objOperaciones = {
-    valorActual,
-    valorAnterior,
-    operador,
-    resultado
-}
 
+/* - En la variable $numberNode se recorre cada boton (btn) y se le agrega un evento click */
 $numberNode.forEach(btn =>{
     agregarEventoClick(btn)
 })
@@ -27,11 +26,16 @@ $operationNode.forEach(operador =>{
     agregarEventoClick(operador)
 })
 
+/* - Se define la función agregarEventoClick que recibe como parametro un elemento */
 function agregarEventoClick(elemento){
+    /* - Al elemento se le agrega un Listener para el evento click, en la cual ejecutara una función de tipo flecha  */
     elemento.addEventListener('click',()=>{
+        /* - Se le define una variable btnPresionado que hace referencia al elemento */
         let btnPresionado = elemento
 
+        /* - Verificamos si el btnPresionado tiene la clase "button-number" */
         if(btnPresionado.classList.contains('button-number')){
+            /* Si es asi, se ejecutara la siguiente operación */
             $operation.innerHTML = valorAnterior + operador + valorActual
             valorActual += elemento.textContent
             $result.innerHTML = valorActual
@@ -88,14 +92,12 @@ function resultadoDeLaOperacion(ope){
             resultado = parseInt(valorAnterior) * parseInt(valorActual)
         }
 
-        /* objOperaciones = {
-            valorActual,
-            valorAnterior,
-            operador,
-            resultado
-        } */
         $operation.innerHTML = valorAnterior + operador + valorActual
         $result.innerHTML = resultado
+
+        historial.push(`${valorAnterior} ${operador} ${valorActual} = ${resultado}`)
+        console.log(historial)
+        
         
         valorActual = ""
         valorAnterior = ""
@@ -104,5 +106,7 @@ function resultadoDeLaOperacion(ope){
         console.log(valorAnterior + operador + valorActual)
     }
 }
+
+
 
 
